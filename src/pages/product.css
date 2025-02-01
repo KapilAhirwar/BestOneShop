@@ -1,0 +1,107 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.card {
+    padding: 1rem;
+    border: 2px solid;
+    border-radius: 1rem;
+    height: auto;
+    min-height: 21rem;
+    width: 100%;
+    max-width: 15rem;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+.price-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.3rem;
+}
+
+.price-button {
+    padding: 0.4rem 0.8rem;
+    border-radius: 3rem;
+    font-size: 0.8rem;
+    border: 2px solid rgb(62, 61, 61);
+    color: rgb(62, 61, 61);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.price-button:hover {
+    font-weight: bold;
+    background-color: rgb(62, 61, 61);
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        max-width: 14rem;
+        min-height: 20rem;
+    }
+    .price-button {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container{
+        display: flex;
+    }
+    .card{
+        border: 2px solid;
+        border-radius: 1rem;
+        height: 21rem;
+        width: 13rem;
+    }
+    .price-button-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0.3rem;
+    }
+    .price-button {
+        padding: 0.4rem;
+        padding-right: 0.6rem;
+        padding-left: 0.6rem;
+        border: 2px solid;
+        border-radius: 3rem;
+        font-size: 0.6rem;
+        font-weight:600;
+        border: 2px solid rgb(62, 61, 61);
+        color: rgb(62, 61, 61);
+    }
+    .price-button:hover{
+        font-weight: bold;
+        background-color: rgb(62, 61, 61);
+        color: white;
+    }
+}  
+  

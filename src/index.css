@@ -13,3 +13,22 @@ body {
   min-height: 100vh;
   background-color: #fff;
 }
+
+/* Add this in your CSS file or Tailwind configuration */
+/* @media (max-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+} */

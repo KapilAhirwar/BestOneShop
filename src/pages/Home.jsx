@@ -2,51 +2,64 @@ import { useState, useEffect } from "react";
 import Spinner from "../components/Spinner";
 import Product from "../components/Product";
 import { useAppContext } from "../useContextHook/context";
+import "./product.css"
 
 const Home = () => {
   const { products, GetProduct } = useAppContext();
-  const API_URL = "https://fakestoreapi.com/products";
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
-  console.log(products)
-
-  async function fetchProductData() {
+  const fetchProductData = async () => {
     setLoading(true);
-    await GetProduct();
-    // try{
-    //   const res = await fetch(API_URL);
-    //   const data = await res.json();
+    try {
+      await GetProduct();
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    //   setPosts(data);
-    // }
-    // catch(error) {
-    //   console.log("Error aagya ji");
-    //   setPosts([]);
-    // }
-    setLoading(false);
+  useEffect(() => {
+    fetchProductData();
+
+    // Check if the screen is mobile or desktop
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+    
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial check
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen px-4">
+        <Spinner />
+      </div>
+    );
   }
 
-  useEffect( () => {
-    fetchProductData();
-  },[])
+  if (!products || products.length === 0) {
+    return (
+      <div className="flex justify-center items-center min-h-screen px-4">
+        <p className="text-center text-gray-600 text-lg">No Data Found</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex justify-center">
-      {
-        loading ? <Spinner />  :
-        products && products.length > 0 ? 
-        (<div className="grid  xs:gridcols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-6xl p-2 mx-auto space-y-10 space-x-5 min-h-[80vh]">
-          {
-            products.map( (post) => (
-            <Product key = {post._id} post={post}/>
-          ) )
-          }
-        </div>) :
-        <div className="flex justify-center items-center">
-          <p>No Data Found</p>
-        </div> 
-      }
+    <div
+      className="container"
+    >
+      {products.map((post) => (
+        <div key={post._id}>
+          <Product post={post} />
+        </div>
+      ))}
     </div>
   );
 };
