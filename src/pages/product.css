@@ -19,9 +19,9 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.card:hover {
+/* .card:hover {
     transform: scale(1.05);
-}
+} */
 
 .image-container {
     display: flex;
@@ -80,8 +80,8 @@
     .card{
         border: 2px solid;
         border-radius: 1rem;
-        height: 21rem;
-        width: 13rem;
+        height: 20rem;
+        width: 12rem;
     }
     .price-button-container {
         display: flex;
