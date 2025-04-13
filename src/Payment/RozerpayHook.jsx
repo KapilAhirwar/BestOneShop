@@ -67,7 +67,7 @@ export const RazorpayProvider = ({children}) => {
       try {
         let { data } = await axios.post(`${payUrl}/payment-success`, { response });
         data = data.data;
-        console.log("data-> ",data);
+        // console.log("data-> ",data);
           setpay(true);        
           navigate('/OrderConfirmation', { state: { data, order } });
       } catch (error) {
