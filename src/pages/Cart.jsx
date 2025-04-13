@@ -129,7 +129,7 @@ const Cart = () => {
   useEffect(() => {
     setTotalAmount(
       updatedCart.reduce(
-        (acc, curr) => acc + curr.product.price * curr.quantity,
+        (acc, curr) => acc + curr.product?.productId?.price * curr.quantity,
         0
       )
     );
@@ -160,8 +160,9 @@ const Cart = () => {
           {/* Cart Items Section */}
           <div className="flex-1 space-y-4 max-h-[70vh] overflow-y-auto">
             {updatedCart.map((item) => (
+              console.log(item.product?.productId?._id),
               <CartItem
-                key={item.product._id}
+                key={item.product?.productId?._id}
                 item={item.product}
                 quantity={item.quantity}
                 onUpdateQuantity={handleUpdateQuantity}
@@ -182,8 +183,8 @@ const Cart = () => {
                     key={index}
                     className="flex justify-between items-center"
                   >
-                    <span>{`${item.product.name} x ${item.quantity}`}</span>
-                    <span>{`₹${item.product.price * item.quantity}`}</span>
+                    <span>{`${item.product?.productId?.name} x ${item.quantity}`}</span>
+                    <span>{`₹${item.product?.productId?.price * item.quantity}`}</span>
                   </p>
                 ))}
               </div>

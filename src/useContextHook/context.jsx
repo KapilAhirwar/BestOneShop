@@ -5,7 +5,8 @@ import { toast as toastHot } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import { data } from "autoprefixer";
-// const backendUrl = "https://7409-2402-8100-2749-fa3f-8184-6961-6fac-abb0.ngrok-free.app/api/v1"
+
+// const backendUrl = "http://localhost:5000/api/v1"
 
 const backendUrl = "https://shopibackend-2.onrender.com/api/v1";  //https://shopibackend-1.onrender.com
 

@@ -4,6 +4,8 @@ export const useAdminContext = createContext();
 
 // let backendUrl = process.env.REACT_APP_BACKEND_URL;
 const backendUrl = "https://shopibackend-2.onrender.com/api/v1"; 
+// const backendUrl = "http://localhost:5000/api/v1"
+
 const adminurl = `${backendUrl}/Admin`;
 
 export const AdminProvider = ({children}) => {

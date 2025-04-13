@@ -359,12 +359,13 @@ const Profile = () => {
                             <>
                                 {userOrder.data.slice(0, visibleOrders).map((order) => (
                                     <div
-                                        key={order._id}
-                                        className="flex flex-col md:flex-row justify-between items-center border-b p-4"
+                                    key={order._id}
+                                    className="flex flex-col md:flex-row justify-between items-center border-b p-4"
                                     >
+                                        {/* {console.log(order.products[0].product.images[0])} */}
                                         <div className="flex items-center mb-4 md:mb-0">
                                             <div className="w-[60px]">
-                                                <img src={order.products[0].product.images[0]} width="50px" height="50px" alt="Product" />
+                                                {/* <img src={order.products[0].product.images[0]} width="50px" height="50px" alt="Product" /> */}
                                             </div>
                                             <div className="ml-4">
                                                 <p className={`text-sm font-semibold ${order.deliveryStatus === "Cancelled" ? "text-red-500" : "text-green-500"}`}>

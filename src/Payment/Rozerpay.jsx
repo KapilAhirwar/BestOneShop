@@ -20,7 +20,7 @@ const ProceedWithRazorpay = async ({ orderId, total, billingDetails, key, paymen
     }
 
     // Validate API Key
-    const razorpayKey = key || process.env.REACT_APP_RAZORPAY_KEY;
+    const razorpayKey = key || process.env.REACT_APP_RAZORPAY_KEY || 'rzp_test_M5FB2A2lt5JanY';
     if (!razorpayKey) {
         console.error("Razorpay API key is missing.");
         toastHot.error("Payment gateway is not configured.");

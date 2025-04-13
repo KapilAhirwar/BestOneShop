@@ -95,7 +95,9 @@ const AddProduct = ({ onClose }) => {
       return;
     }
 
+    
     try {
+      console.log("adding...");
       await addProduct();
       setLoading(false);
       await GetProduct();
@@ -114,6 +116,8 @@ const AddProduct = ({ onClose }) => {
       setImageFiles([]); // Clear the image files
       // setShow(false);
       onClose();
+      console.log("added...");
+
     } catch (error) {
       console.log(error);
       setLoading(false);

@@ -11,8 +11,6 @@ const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
   const userData = data?.user_data || {};
   let location = userData?.address;
 
-  console.log("card -> ",updatedCart);
-
   const formatAddresses = () => {
     if (!location || location.length === 0) {
       console.log("No address available.");
@@ -60,7 +58,7 @@ const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
   const calculateTotal = () => {
     let subtotal = 0;
     updatedCart.map((it, index) => {
-      subtotal += it.product.price * it.quantity;
+      subtotal += it.product.productId.price * it.quantity;
     });
     // console.log("subtotal", subtotal);
     const discount = (subtotal * discountRate) / 100;
@@ -243,8 +241,8 @@ const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
         <h2 className="text-lg font-semibold text-gray-800 mb-4">Order Summary</h2>
         <ul>
           {updatedCart?.map((item) => (
-            <li key={item.product._id}>
-              {item.product.name} - ₹{item.product.price} x {item.quantity}
+            <li key={item.product.productId._id}>
+              {item.product.productId.name} - ₹{item.product.productId.price} x {item.quantity}
             </li>
           ))}
         </ul>
