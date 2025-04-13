@@ -109,7 +109,7 @@ const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
           billingDetails.address,
         );
         order.orderId = orderId;
-        
+        console.log("order key -> ",key , orderId);
         // Proceed with Razorpay payment
         // setPaymentLoader(false);
         await proceedWithRazorpay({orderId, total, billingDetails, key, paymentVerify, order, setPaymentLoader});

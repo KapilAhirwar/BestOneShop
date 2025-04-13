@@ -136,8 +136,9 @@ const Cart = () => {
   }, [updatedCart]);
 
   const handleUpdateQuantity = (productId, newQuantity) => {
+    console.log(updatedCart[0].quantity, newQuantity);
     const newCart = updatedCart.map((item) =>
-      item.product._id === productId
+      item.product.productId._id === productId
         ? { ...item, quantity: newQuantity }
         : item
     );

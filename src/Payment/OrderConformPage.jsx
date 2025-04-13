@@ -56,10 +56,10 @@ const OrderConfirmation = () => {
             <div className="bg-white p-6 rounded-lg shadow-md mb-6">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">Products</h2>
                 <ul className="space-y-2">
-                    {order?.products.map((product) => (
+                    {order?.products.map((product) => ( 
                         <li key={product.product._id} className="flex justify-between">
-                            <span className="text-gray-700">{product.product.name} (x{product.quantity})</span>
-                            <span className="font-medium text-gray-900">₹{product.product.price}</span>
+                            <span className="text-gray-700">{product.product.productId.name} (x{product.quantity})</span>
+                            <span className="font-medium text-gray-900">₹{product.product.productId.price}</span>
                         </li>
                     ))}
                 </ul>

@@ -24,6 +24,7 @@ export const RazorpayProvider = ({children}) => {
     const navigate = useNavigate(); ///create/Cash-on-delivey
 
     const createOrderCOD = async (total, userId, cartItems, deliveryAddress, paymentMethod, order) => {
+        console.log("start -> ",total )
         try {
             const response = await axios.post(`${payUrl}/create/Cash-on-delivey`, {
                 total,
@@ -33,6 +34,7 @@ export const RazorpayProvider = ({children}) => {
                 paymentMethod,
             }, {withCredentials:true});
             const { data } = response.data;
+            console.log("create order success -> ",response);
             setOrderDetails( (data)=>({...data, data, total }));
             order.orderId = data.orderId;
             setpay(true);        
