@@ -15,7 +15,7 @@ const authUrl = `${backendUrl}/protect`;
 const adminurl = `${backendUrl}/Admin`;
 const userUrl = `${backendUrl}/User`;
 
-console.log(backendUrl);
+// console.log(backendUrl);
 
 
 export const AppContext = createContext();
@@ -111,7 +111,7 @@ export const AppContextprovider  = ({children})  => {
             }
             else{
                 navigate('/');
-                console.log("authorize",res.data);
+                // console.log("authorize",res.data);
                 setUserInfo(res.data.user_data);
                 setdata(res.data);
                 GetAllCart();
@@ -219,7 +219,7 @@ export const AppContextprovider  = ({children})  => {
   //Products api call
   const addProduct = async() => {
         try {
-            console.log("upload")
+            // console.log("upload")
             const response = await axios.post(`${adminurl}/upload/product`,formData,{
                 headers: {
                   'Content-Type': 'multipart/form-data',
@@ -227,7 +227,7 @@ export const AppContextprovider  = ({children})  => {
                 withCredentials: true, // If using cookies for authentication
               }
             );
-            console.log("ho gya ",response.data);
+            // console.log("ho gya ",response.data);
             toastHot.success(response.data.message);
             // alert('Product added successfully!');
           } catch (error) {
@@ -277,7 +277,7 @@ export const AppContextprovider  = ({children})  => {
   };
   const ProductDelete = async(productId) => {
         try {
-            console.log("upload",productId);
+            // console.log("upload",productId);
             const response = await axios.delete(`${adminurl}/${productId}/deleteProduct`);
             // console.log("ho gya delete ");
             GetProduct();
@@ -302,7 +302,7 @@ export const AppContextprovider  = ({children})  => {
     }
   };
   const editUser = async (userId, updatedData) => {
-    console.log(userId,updatedData)
+    // console.log(userId,updatedData)
     try {
       const response = await axios.put(`${adminurl}/manage-users/${userId}/edit`, updatedData);
       toast.success(response.data.message);
@@ -340,7 +340,7 @@ export const AppContextprovider  = ({children})  => {
       setLoading(true);
     try {
       const response = await axios.post(`${userUrl}/AddNew/Address`, formData,{ withCredentials: true });
-      console.log("ho gya address",response.data);
+      // console.log("ho gya address",response.data);
       setAddresses((prevAddresses) => [...prevAddresses, response.data.address]);
       toast.success("Address added successfully!");
     } catch (error) {
@@ -409,7 +409,7 @@ export const AppContextprovider  = ({children})  => {
         { productId },
         { withCredentials: true }
       );
-      console.log("Item added:", response.data.cart.products);
+      // console.log("Item added:", response.data.cart.products);
       const newProducts = response.data.cart.products;
   
       setCart((prev) => {
@@ -429,7 +429,7 @@ export const AppContextprovider  = ({children})  => {
       const response = await axios.delete(`${userUrl}/${productId}/remove/cart`, {
         withCredentials: true,
       });
-      console.log("Item removed successfully:", response.data.message);
+      // console.log("Item removed successfully:", response.data.message);
       
       setCart((prev) => {
         const newCart = prev.filter((item) => item._id !== productId);

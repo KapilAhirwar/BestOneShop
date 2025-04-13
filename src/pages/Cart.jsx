@@ -136,7 +136,7 @@ const Cart = () => {
   }, [updatedCart]);
 
   const handleUpdateQuantity = (productId, newQuantity) => {
-    console.log(updatedCart[0].quantity, newQuantity);
+    // console.log(updatedCart[0].quantity, newQuantity);
     const newCart = updatedCart.map((item) =>
       item.product.productId._id === productId
         ? { ...item, quantity: newQuantity }
@@ -161,7 +161,7 @@ const Cart = () => {
           {/* Cart Items Section */}
           <div className="flex-1 space-y-4 max-h-[70vh] overflow-y-auto">
             {updatedCart.map((item) => (
-              console.log(item.product?.productId?._id),
+              // console.log(item.product?.productId?._id),
               <CartItem
                 key={item.product?.productId?._id}
                 item={item.product}
