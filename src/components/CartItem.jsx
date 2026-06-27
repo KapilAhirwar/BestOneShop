@@ -6,6 +6,8 @@ import { useAppContext } from "../useContextHook/context";
 const CartItem = ({ item, quantity, onUpdateQuantity }) => {
   const { removeFromCart } = useAppContext();
   const [isExpanded, setIsExpanded] = useState(false);
+  // console.log("product -> ", item);
+  // console.log("product id -> ", item.userSize);
 
   let item1 = item.productId;
   const removeItemFromCart = () => {
@@ -61,6 +63,11 @@ const CartItem = ({ item, quantity, onUpdateQuantity }) => {
               </button>
             )}
           </p>
+          <div className="flex items-center gap-2 mt-2 text-sm text-gray-700">
+            <span>Size: {item?.userSize}</span>
+            <span>Color: {item?.userColor}</span>
+          </div>
+
         </div>
       </div>
 

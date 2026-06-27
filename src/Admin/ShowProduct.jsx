@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { useAppContext } from '../useContextHook/context';
@@ -7,7 +7,7 @@ import Modal from './Modal';
 import EditProduct from './EditProduct';
 
 const ShowProducts = () => {
-    const { show, setShow, products, ProductDelete } = useAppContext();
+    const { show, setShow, products, ProductDelete, adminProducts, GetAdminProduct } = useAppContext();
     const [editProduct, setEditProduct] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);
@@ -64,7 +64,7 @@ const ShowProducts = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((product) => (
+                                {adminProducts.map((product) => (
                                     <tr key={product._id} className="text-center">
                                         <td className="py-2 px-2 border-b flex justify-center items-center">
                                             <img src={`${product.images[0]}`} width="60px" alt={product.name} />

@@ -123,6 +123,7 @@ import { useAppContext } from "../useContextHook/context";
 const Cart = () => {
   const { updatedCart, setUpdatedCart } = useAppContext();
   const [totalAmount, setTotalAmount] = useState(0);
+  // console.log("updateCart -> ", updatedCart );
 
   const navigate = useNavigate();
 
@@ -153,7 +154,6 @@ const Cart = () => {
       },
     });
   };
-
   return (
     <div className="flex justify-center p-4 sm:p-6">
       {updatedCart.length > 0 ? (

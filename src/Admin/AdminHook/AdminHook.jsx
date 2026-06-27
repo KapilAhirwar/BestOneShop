@@ -1,16 +1,17 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-export const useAdminContext = createContext();
+export const AdminContext = createContext();
 
 // let backendUrl = process.env.REACT_APP_BACKEND_URL;
-const backendUrl = "https://shopibackend-2.onrender.com/api/v1"; 
-// const backendUrl = "http://localhost:5000/api/v1"
+// const backendUrl = "https://shopibackend-2.onrender.com/api/v1"; 
+const backendUrl = "http://localhost:5000/api/v1"
 
 const adminurl = `${backendUrl}/Admin`;
 
 export const AdminProvider = ({children}) => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    
     
     useEffect(() => {
         const fetchOrders = async () => {
@@ -39,11 +40,11 @@ export const AdminProvider = ({children}) => {
         }
     };
 
-    return  <useAdminContext.Provider 
+    return  <AdminContext.Provider 
              value={{orders, loading, updateOrderStatus}}
             >
             {children}
-            </useAdminContext.Provider>
+            </AdminContext.Provider>
 }
 
-export const useAdminHook = () => useContext(useAdminContext);
+export const useAdminHook = () => useContext(AdminContext);

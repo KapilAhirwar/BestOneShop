@@ -24,20 +24,16 @@ import OrderConfirmation from "./Payment/OrderConformPage";
 import Checkout from "./Payment/CheckOut";
 import PaymentRoute from "./protectRoutes/paymentRoute";
 import ProductDetailsPage from "./pages/product/ProductPage";
-import AddressManager from "./User/Address";
-import AddProduct from "./Admin/AddProduct";
-import LoaderPopUpOpen from "./User/loaderOpener";
+import OrderDetail from "./pages/product/OrderDetail";
+// import Filter from "./pages/ProList";
 
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { role, userInfo, data } = useAppContext();
-  // console.log("role -> ",role, data.user_data);
-
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
   return (
       <div className="flex flex-col min-h-screen">
         <div className="bg-slate-900">
@@ -59,6 +55,8 @@ const App = () => {
             <Route path="/checkout" element={<Checkout/>}/>
             <Route path="/OrderConfirmation" element={ <PaymentRoute> <OrderConfirmation/></PaymentRoute>}/>
             <Route path="/ProductDetail" element={<ProductDetailsPage />} />
+            <Route path="/OrderDetails/:orderId" element={<OrderDetail/>}/>
+            {/* <Route path="/filter" element={<Filter/>}/> */}
             
             <Route path="/admin/Dashboard"
               element={

@@ -5,10 +5,11 @@ import { toast as toastHot } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import { data } from "autoprefixer";
+// import { useAdminHook } from "../Admin/AdminHook/AdminHook";
 
-// const backendUrl = "http://localhost:5000/api/v1"
+const backendUrl = "http://localhost:5000/api/v1"
 
-const backendUrl = "https://shopibackend-2.onrender.com/api/v1";  //https://shopibackend-1.onrender.com
+// const backendUrl = "https://shopibackend-2.onrender.com/api/v1";  //https://shopibackend-1.onrender.com
 
 // let backendUrl = process.env.REACT_APP_BACKEND_URL;
 const authUrl = `${backendUrl}/protect`;
@@ -21,6 +22,7 @@ const userUrl = `${backendUrl}/User`;
 export const AppContext = createContext();
 
 export const AppContextprovider  = ({children})  => {
+    // const {GetAdminProduct} = useAdminHook();
     const [isUser, setIsUser] = useState(false);
     const [LoginData,setLoginData] = useState({ email:'', password:'' });// logindata store
     const [signInData, setSignInData ] = useState({name:'', email:'', password:'', phone:''}); //signUp Store
@@ -38,6 +40,11 @@ export const AppContextprovider  = ({children})  => {
     const [cart, setCart] = useState([]);
     const [updatedCart, setUpdatedCart] = useState([]);
     const [orderDetails, setOrderDetails] = useState({});
+  const [Categories, setCategories] = useState([]);
+  const [topCategories, setTopCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [selectedTop, setSelectedTop] = useState("");
+    const [adminProducts, setAdminProducts] = useState([]);
 
     // Helper function to sync updatedCart
     const syncUpdatedCart = (newCart) => {
@@ -45,6 +52,8 @@ export const AppContextprovider  = ({children})  => {
         newCart.map((item) => ({
           product: { ...item },
           quantity: 1,
+          item_id:item.productId._id,
+          item_img: item.productId.images[0]
         }))
       );
     };
@@ -60,6 +69,7 @@ export const AppContextprovider  = ({children})  => {
                 setIsUser(true);
                 setrole(res.data.user.role);
                 GetProduct();
+                GetAdminProduct();
                 setUserInfo(res.data.user_data);
                 setdata(res.data);
                 GetAllCart();
@@ -108,6 +118,7 @@ export const AppContextprovider  = ({children})  => {
             setIsUser(true);
             if(role=="Admin"){ 
                 navigate('/admin/Dashboard');
+                GetAdminProduct();
             }
             else{
                 navigate('/');
@@ -245,6 +256,16 @@ export const AppContextprovider  = ({children})  => {
             console.log(error);
         }
   };
+
+  const GetAdminProduct = async () => {
+          try {
+              const res = await axios.get(`${adminurl}/Get/Admin/product`,{withCredentials:true});
+              setAdminProducts(res.data.data);
+          } catch (error) {
+              
+          }
+  }
+
   const deleteProductImage = async (productId, imageUrl) => {
         try {
           const response = await axios.delete(`${adminurl}/product/${productId}/image`, {
@@ -252,6 +273,7 @@ export const AppContextprovider  = ({children})  => {
           });
           console.log('Image deleted successfully:');
           GetProduct();
+          GetAdminProduct();
           return response.data;
         } catch (error) {
           console.error('Error deleting image:', error.response?.data || error.message);
@@ -281,6 +303,7 @@ export const AppContextprovider  = ({children})  => {
             const response = await axios.delete(`${adminurl}/${productId}/deleteProduct`);
             // console.log("ho gya delete ");
             GetProduct();
+            GetAdminProduct();
             toastHot.success(response.data.message);
             // alert('Product added successfully!');
         } catch (error) {
@@ -395,18 +418,19 @@ export const AppContextprovider  = ({children})  => {
           ...newProducts.filter((p) => !prev.some((existing) => existing._id === p._id)),
         ];
         syncUpdatedCart(updatedCart); // Sync updatedCart
+        // console.log("uptcrt -> ",updatedCart[0].productId.images[0]);
         return updatedCart;
       });
     } catch (error) {
       console.error("Error fetching cart:", error.response?.data?.message || error.message);
     }
   };
-  const addToCart = async (item) => {
+  const addToCart = async (item,userColor,userSize) => {
     const productId = item._id;
     try {
       const response = await axios.post(
         `${userUrl}/add-To/cart`,
-        { productId },
+        { productId, userSize, userColor },
         { withCredentials: true }
       );
       // console.log("Item added:", response.data.cart.products);
@@ -429,13 +453,19 @@ export const AppContextprovider  = ({children})  => {
       const response = await axios.delete(`${userUrl}/${productId}/remove/cart`, {
         withCredentials: true,
       });
-      // console.log("Item removed successfully:", response.data.message);
+      // console.log("Item removed successfully:", response.data);
+      // console.log("product id: ", productId);
       
       setCart((prev) => {
-        const newCart = prev.filter((item) => item._id !== productId);
+        const newCart = prev.filter((item) => item.productId._id !== productId);
+        // const newCart = prev.filter((item) => {
+        //   console.log(item.productId._id);
+        //   return item.productId._id !== productId;
+        // });
         syncUpdatedCart(newCart); // Sync updatedCart
         return newCart;
       });
+
     } catch (error) {
       console.error("Error removing from cart:", error.response?.data?.message || error.message);
     }
@@ -454,6 +484,26 @@ export const AppContextprovider  = ({children})  => {
       console.log("error in user order",error);
     }
   }
+
+  useEffect(() => {
+    axios.get(`${adminurl}/fatch/All/categories`)
+      .then(res => setCategories(res.data.categories))
+      .catch(err => console.error(err));
+    }, []);
+
+  useEffect(() => {
+    axios.get(`${adminurl}/fatch/categories`)
+      .then(res => setTopCategories(res.data.categories))
+      .catch(err => console.error(err));
+    }, []);
+  
+  const handleTopChange = (e) => {
+    const topId = e.target.value;
+    setSelectedTop(topId);
+    axios.get(`${adminurl}//fatch/subCategories/${topId}`)
+      .then(res => setSubCategories(res.data.categories))
+      .catch(err => console.error(err));
+  };
   
     return <AppContext.Provider 
     value={{ isUser, clearCart, removeFromCart, addToCart, cart, role, setrole,
@@ -463,7 +513,8 @@ export const AppContextprovider  = ({children})  => {
              getUsers, editUser, deleteUser, addresses, loading, 
              fetchAddresses, addAddress, updateAddress, deleteAddress, data, 
              updatedCart, setUpdatedCart, orderDetails, setOrderDetails, 
-             getUserOrder, userOrder, userInfo,
+             getUserOrder, userOrder, userInfo, handleTopChange, topCategories, subCategories, selectedTop,
+             Categories, GetAdminProduct, adminProducts
                                         
             }}>
         {children}

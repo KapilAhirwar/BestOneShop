@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../useContextHook/context";
 export const RozerpayApp = createContext();
 
-const backendUrl = "https://shopibackend-2.onrender.com/api/v1"; 
+// const backendUrl = "https://shopibackend-2.onrender.com/api/v1"; 
 
-// const backendUrl = "http://localhost:5000/api/v1"
-
-
+const backendUrl = "http://localhost:5000/api/v1"
 // let backendUrl = process.env.REACT_APP_BACKEND_URL;
 const payUrl = `${backendUrl}/payment`;
 
@@ -47,6 +45,7 @@ export const RazorpayProvider = ({children}) => {
     };
 
     const createOrder = async (total, userId, cartItems, deliveryAddress ) => {
+        console.log("crt", cartItems);
       try {
           const response = await axios.post(`${payUrl}/create-order`, {
               total,

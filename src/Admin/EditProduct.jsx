@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 import { useAppContext } from '../useContextHook/context';
 
 const EditProduct = ({ onClose, Data, Edit }) => {
-    const {deleteProductImage, EditProductData, GetProduct} = useAppContext();
+    const {deleteProductImage, EditProductData, GetProduct, GetAdminProduct} = useAppContext();
   const [product, setProduct] = useState({
     name: '',
     description: '',
@@ -117,6 +117,7 @@ const EditProduct = ({ onClose, Data, Edit }) => {
       // Make API call to update product
       await EditProductData(formData,Data._id);
       await GetProduct();
+      await GetAdminProduct();
       setLoading(false);
       onClose();
     } catch (err) {

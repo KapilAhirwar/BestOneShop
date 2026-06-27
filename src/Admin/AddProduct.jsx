@@ -3,9 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../useContextHook/context';
 import { FaTimes } from 'react-icons/fa';
-
 const AddProduct = ({ onClose }) => {
-  const { show, setShow, formData, addProduct, GetProduct } = useAppContext();
+  const { show, setShow, formData, addProduct, GetProduct, handleTopChange, topCategories, subCategories, selectedTop, GetAdminProduct } = useAppContext();
   const [loading, setLoading] = useState(false);
   
   const [product, setProduct] = useState({
@@ -20,10 +19,11 @@ const AddProduct = ({ onClose }) => {
     tags: '',
     images: [], // Array for storing multiple image URLs
   });
-
   const [imageFiles, setImageFiles] = useState([]); // Store multiple selected images
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  console.log("categories : ",topCategories);
+  console.log("subcategories : ",subCategories);
 
   // Handle input change
   const handleChange = (e) => {
@@ -34,14 +34,26 @@ const AddProduct = ({ onClose }) => {
     }));
   };
 
+  // // Handle multiple sizes
+  // const handleSizeChange = (e) => {
+  //   const { value } = e.target;
+  //   setProduct((prevProduct) => ({
+  //     ...prevProduct,
+  //     size: value.split(',').map((size) => size.trim()), // Convert comma-separated string to array
+  //   }));
+  // };
+
   // Handle multiple sizes
-  const handleSizeChange = (e) => {
-    const { value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      size: value.split(',').map((size) => size.trim()), // Convert comma-separated string to array
-    }));
-  };
+const handleSizeChange = (e) => {
+  const { value } = e.target;
+  setProduct((prevProduct) => ({
+    ...prevProduct,
+    size: value
+      .split(',')
+      .map((size) => size.trim().toUpperCase()), // Trim and convert to uppercase
+  }));
+};
+
 
   const handleColorChange = (e) => {
     const { value } = e.target;
@@ -50,7 +62,7 @@ const AddProduct = ({ onClose }) => {
       color: value.split(',').map((color) => color.trim()), // Convert comma-separated string to array
     }));
   };
-
+  console.log("product",product);
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,14 +82,6 @@ const AddProduct = ({ onClose }) => {
     for (const imageFile of imageFiles) {
       formData.append('productImages', imageFile);
     }
-
-    // for (const [key, value] of formData.entries()) {
-    //   if (key === 'productImages') {
-    //     console.log(key, value.name); // File object ka naam dikhayega
-    //   } else {
-    //     console.log(key, value); // Normal string values dikhayega
-    //   }
-    // }
 
     // Form validation
     if (
@@ -101,6 +105,7 @@ const AddProduct = ({ onClose }) => {
       await addProduct();
       setLoading(false);
       await GetProduct();
+      await GetAdminProduct();
       setProduct({
         name: '',
         description: '',
@@ -175,7 +180,7 @@ const AddProduct = ({ onClose }) => {
                 className="w-full px-3 py-2 border rounded"
               />
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label className="block mb-1">Category</label>
               <input
                 type="text"
@@ -184,6 +189,41 @@ const AddProduct = ({ onClose }) => {
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded"
               />
+            </div> */}
+            {/* ✅ TOP CATEGORY DROPDOWN */}
+            <div className="mb-3">
+              <label className="block mb-1">Top Category</label>
+              <select
+                value={selectedTop}
+                onChange={handleTopChange} // From context
+                className="w-full px-3 py-2 border rounded"
+              >
+                <option value="">-- Select Top Category --</option>
+                {topCategories.map((cat) => (
+                  <option key={cat._id} value={cat._id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* ✅ SUB CATEGORY DROPDOWN */}
+            <div className="mb-3">
+              <label className="block mb-1">Sub Category</label>
+              <select
+                value={product.category}
+                onChange={(e) =>
+                  setProduct((prev) => ({ ...prev, category: e.target.value }))
+                }
+                className="w-full px-3 py-2 border rounded"
+              >
+                <option value="">-- Select Sub Category --</option>
+                {subCategories.map((sub) => (
+                  <option key={sub._id} value={sub._id}>
+                    {sub.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="mb-3">
               <label className="block mb-1">Sizes (comma-separated)</label>
