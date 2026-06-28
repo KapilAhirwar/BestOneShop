@@ -69,9 +69,7 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  Typography,
-  Button,
-  Box,
+  Typography
 } from "@mui/material";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -83,21 +81,21 @@ const Product = ({ post }) => {
   const { addToCart, removeFromCart, cart } = useAppContext();
   const navigate = useNavigate();
 
-  const addItemCart = () => {
-    addToCart(post);
-    toast.success("Item added to Cart");
-  };
+  // const addItemCart = () => {
+  //   addToCart(post);
+  //   toast.success("Item added to Cart");
+  // };
 
-  const removeItemFromCart = () => {
-    removeFromCart(post._id);
-    toast.error("Item removed from Cart");
-  };
+  // const removeItemFromCart = () => {
+  //   removeFromCart(post._id);
+  //   toast.error("Item removed from Cart");
+  // };
 
   const handleProductDetail = () => {
     navigate("/ProductDetail", { state: { product: post } });
   };
 
-  const isInCart = cart?.some((p) => p._id === post._id);
+  // const isInCart = cart?.some((p) => p._id === post._id);
 
   const [width, setWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0

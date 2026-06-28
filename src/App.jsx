@@ -30,7 +30,7 @@ import OrderDetail from "./pages/product/OrderDetail";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { role, userInfo, data } = useAppContext();
+  const { role } = useAppContext();
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -38,7 +38,7 @@ const App = () => {
       <div className="flex flex-col min-h-screen">
         <div className="bg-slate-900">
           {
-            role == 'Admin' ? <AdminNavbar/>: <Navbar toggleSidebar={toggleSidebar}/>
+            role === 'Admin' ? <AdminNavbar/>: <Navbar toggleSidebar={toggleSidebar}/>
           }
         </div>
         <main className="flex-grow">

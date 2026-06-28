@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { useAppContext } from '../useContextHook/context';
 import AddProduct from './AddProduct';
@@ -7,7 +6,7 @@ import Modal from './Modal';
 import EditProduct from './EditProduct';
 
 const ShowProducts = () => {
-    const { show, setShow, products, ProductDelete, adminProducts, GetAdminProduct } = useAppContext();
+    const { show, setShow, ProductDelete, adminProducts } = useAppContext();
     const [editProduct, setEditProduct] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);

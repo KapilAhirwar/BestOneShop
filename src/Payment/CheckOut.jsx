@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppContext } from "../useContextHook/context";
 import { useRozerpay } from "./RozerpayHook";
 import proceedWithRazorpay from "./Rozerpay";
-import { useLocation } from "react-router-dom";
 import LoaderPopUpOpen from "../User/loaderOpener";
 
 const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
   const { data, updatedCart, } = useAppContext();
-  const { createOrder, PaymentSuccess, paymentVerify, createOrderCOD, paymentLoader, setPaymentLoader } = useRozerpay();
+  const { createOrder, paymentVerify, createOrderCOD, paymentLoader, setPaymentLoader } = useRozerpay();
   const userData = data?.user_data || {};
   let location = userData?.address;
 
@@ -19,7 +18,7 @@ const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
 
     const formattedAddresses = location.map((element, index) => {
       const {
-        fullName = "",
+        // fullName = "",
         addressLine1 = "",
         phone = "",
         landmark = "",
@@ -57,7 +56,7 @@ const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
 
   const calculateTotal = () => {
     let subtotal = 0;
-    updatedCart.map((it, index) => {
+    updatedCart.forEach((it) => {
       subtotal += it.product.productId.price * it.quantity;
     });
     // console.log("subtotal", subtotal);
@@ -116,7 +115,7 @@ const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
         
         // console.log("Payment process completed.");
       } else if (paymentMethod === "COD") {
-        const response = await createOrderCOD(
+        await createOrderCOD(
           total,
           userData._id,
           updatedCart,
@@ -256,11 +255,11 @@ const Checkout = ({ gstRate = 18, discountRate = 20 }) => {
       <div className="flex justify-end">
         <button
           onClick={handleCheckout}
-          disabled={paymentLoader==true}
+          disabled={paymentLoader===true}
           className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
         >
           
-          { paymentLoader==true ? <LoaderPopUpOpen text={"Please Wait..."}/>:"Proceed to Payment"}
+          { paymentLoader===true ? <LoaderPopUpOpen text={"Please Wait..."}/>:"Proceed to Payment"}
         </button>
       </div>
     </div>

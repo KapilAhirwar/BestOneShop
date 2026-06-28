@@ -31,9 +31,9 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">© 2025 YourShop. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white">Facebook</a>
-            <a href="#" className="text-gray-400 hover:text-white">Twitter</a>
-            <a href="#" className="text-gray-400 hover:text-white">Instagram</a>
+            <a href="https://www.facebook.com/kapil.varma.923171" className="text-gray-400 hover:text-white">Facebook</a>
+            <a href="https://www.instagram.com/kapilverma_8_8_/" className="text-gray-400 hover:text-white">Twitter</a>
+            <a href="https://www.instagram.com/kapilverma_8_8_/" className="text-gray-400 hover:text-white">Instagram</a>
           </div>
         </div>
       </div>

@@ -7,16 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { data } from "autoprefixer";
 // import { useAdminHook } from "../Admin/AdminHook/AdminHook";
 
-const backendUrl = "http://localhost:5000/api/v1"
-
-// const backendUrl = "https://shopibackend-2.onrender.com/api/v1";  //https://shopibackend-1.onrender.com
+// const backendUrl = process.env.REACT_APP_BACKEND_URL_LOCAL;
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 // let backendUrl = process.env.REACT_APP_BACKEND_URL;
 const authUrl = `${backendUrl}/protect`;
 const adminurl = `${backendUrl}/Admin`;
 const userUrl = `${backendUrl}/User`;
 
-// console.log(backendUrl);
 
 
 export const AppContext = createContext();

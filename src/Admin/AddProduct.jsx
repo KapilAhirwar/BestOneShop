@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../useContextHook/context';
 import { FaTimes } from 'react-icons/fa';
 const AddProduct = ({ onClose }) => {
-  const { show, setShow, formData, addProduct, GetProduct, handleTopChange, topCategories, subCategories, selectedTop, GetAdminProduct } = useAppContext();
+  const { show, formData, addProduct, GetProduct, handleTopChange, topCategories, subCategories, selectedTop, GetAdminProduct } = useAppContext();
   const [loading, setLoading] = useState(false);
   
   const [product, setProduct] = useState({
@@ -21,7 +19,6 @@ const AddProduct = ({ onClose }) => {
   });
   const [imageFiles, setImageFiles] = useState([]); // Store multiple selected images
   const [error, setError] = useState('');
-  const navigate = useNavigate();
   console.log("categories : ",topCategories);
   console.log("subcategories : ",subCategories);
 

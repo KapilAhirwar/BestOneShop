@@ -1,23 +1,21 @@
-import { data } from "autoprefixer";
+// import { data } from "autoprefixer";
 import axios from "axios";
-import { Children, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../useContextHook/context";
 export const RozerpayApp = createContext();
+// const backendUrl = process.env.REACT_APP_BACKEND_URL_LOCAL;
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-// const backendUrl = "https://shopibackend-2.onrender.com/api/v1"; 
-
-const backendUrl = "http://localhost:5000/api/v1"
-// let backendUrl = process.env.REACT_APP_BACKEND_URL;
 const payUrl = `${backendUrl}/payment`;
 
 export const RazorpayProvider = ({children}) => {
 
-    const [paymentStatus, setPaymentStatus] = useState(null);
+    // const [paymentStatus, setPaymentStatus] = useState(null);
     const [paymentLoader, setPaymentLoader] = useState(false);
     const [pay, setpay] = useState(false);
-    const {orderDetails, setOrderDetails} = useAppContext();    
+    // const {orderDetails, setOrderDetails} = useAppContext();    
 
     const navigate = useNavigate(); ///create/Cash-on-delivey
 
@@ -33,7 +31,7 @@ export const RazorpayProvider = ({children}) => {
             }, {withCredentials:true});
             const { data } = response.data;
             // console.log("create order success -> ",response);
-            setOrderDetails( (data)=>({...data, data, total }));
+            // setOrderDetails( (data)=>({...data, data, total }));
             order.orderId = data.orderId;
             setpay(true);        
             navigate('/OrderConfirmation', { state: { data, order } });
@@ -54,7 +52,7 @@ export const RazorpayProvider = ({children}) => {
               deliveryAddress,
           },  {withCredentials:true});
           const { orderId, key } = response.data;
-          setOrderDetails( (data)=>({...data, orderId, total }));
+        //   setOrderDetails( (data)=>({...data, orderId, total }));
           return { orderId, key }; // Return order data to frontend
       } catch (error) {
           console.error('Error creating order:', error);
@@ -77,7 +75,8 @@ export const RazorpayProvider = ({children}) => {
 
     const paymentVerify = async( response, order ) => {
       try {
-          const { data } = await axios.post(`${payUrl}/verify-payment`, { response });
+        //   const { data } = 
+          await axios.post(`${payUrl}/verify-payment`, { response });
           await PaymentSuccess( response, order ); 
       } catch (error) {
           console.error("Error verifying payment:", error);

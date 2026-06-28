@@ -65,7 +65,8 @@ const AddressManager = ({ onClose }) => {
         await updateAddress(editId, formData);
         toast.success("Address updated successfully!");
       } else {
-        const newAddress = await addAddress(formData);
+        // const newAddress = 
+        await addAddress(formData);
         toast.success("Address added successfully!");
       }
       resetForm();

@@ -19,7 +19,6 @@ const EditProduct = ({ onClose, Data, Edit }) => {
 
   const [newImages, setNewImages] = useState([]); // Newly added images
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   // Populate product data when component mounts
   useEffect(() => {
@@ -122,7 +121,6 @@ const EditProduct = ({ onClose, Data, Edit }) => {
       onClose();
     } catch (err) {
       console.error(err);
-      setError('Failed to update product');
       setLoading(false);
     }
   };

@@ -187,11 +187,9 @@ import {
   Grid,
   Typography,
   Button,
-  Drawer,
   Menu,
   MenuItem,
 } from "@mui/material";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CategoryFilter from "./Filter";
 import Spinner from "../components/Spinner";
@@ -205,7 +203,7 @@ const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  // const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
   const fetchProductData = async () => {
     setLoading(true);
@@ -246,7 +244,7 @@ const Home = () => {
         )
       );
     }
-    if (isMobile) setFilterDrawerOpen(false);
+    // if (isMobile) setFilterDrawerOpen(false);
   };
 
   if (loading) return <SpinnerCentered />;

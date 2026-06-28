@@ -2,9 +2,8 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 export const AdminContext = createContext();
 
-// let backendUrl = process.env.REACT_APP_BACKEND_URL;
-// const backendUrl = "https://shopibackend-2.onrender.com/api/v1"; 
-const backendUrl = "http://localhost:5000/api/v1"
+// const backendUrl = process.env.REACT_APP_BACKEND_URL_LOCAL;
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const adminurl = `${backendUrl}/Admin`;
 
