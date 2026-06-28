@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { toast as toastHot } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
@@ -54,7 +54,7 @@ export const AppContextprovider  = ({children})  => {
     };
    
     // Check user session using cookies
-    const checkUserStatus = async () => {
+    const checkUserStatus = useCallback(async () => {
         // console.log("checkstatus");
         try {
             const res = await axios.get(`${authUrl}/validate-session`, { withCredentials: true });
@@ -79,11 +79,14 @@ export const AppContextprovider  = ({children})  => {
             setIsUser(false);
             // navigete('/Login');
         }
-    };
+    }, 
+    [
+      authUrl,
+    ]);
     useEffect(() => {
         // console.log("user data fatchting -> ");
         checkUserStatus();
-    }, [onclick]);
+    }, [checkUserStatus]);
 
     //logout krta hai 
     const handleLogOut = async() => {
