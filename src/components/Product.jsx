@@ -71,14 +71,13 @@ import {
   CardActions,
   Typography
 } from "@mui/material";
-import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../useContextHook/context";
+// import { useAppContext } from "../useContextHook/context";
 import { useState, useEffect } from "react";
 
 
 const Product = ({ post }) => {
-  const { addToCart, removeFromCart, cart } = useAppContext();
+  // const { addToCart, removeFromCart, cart } = useAppContext();
   const navigate = useNavigate();
 
   // const addItemCart = () => {

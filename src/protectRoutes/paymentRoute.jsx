@@ -1,6 +1,4 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAppContext } from "../useContextHook/context";
 import Home from "../pages/Home";
 import { useRozerpay } from "../Payment/RozerpayHook";
 

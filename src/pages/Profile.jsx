@@ -159,7 +159,7 @@ import PopUpOpen from "../User/popUpOpener";
 import AddressManager from "../User/Address";
 
 const Profile = () => {
-    const { handleLogOut, role, setrole, getUserOrder, userOrder, userInfo } = useAppContext();
+    const { handleLogOut, setrole, getUserOrder, userOrder, userInfo } = useAppContext();
     const navigate = useNavigate();
     const [isOpenAddress, setOpenAddresses] = useState(false);
     const [visibleOrders, setVisibleOrders] = useState(2); // Default to show 2 orders

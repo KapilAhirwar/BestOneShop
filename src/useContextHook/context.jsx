@@ -1,21 +1,18 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { toast as toastHot } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
-import { data } from "autoprefixer";
+// import { data } from "autoprefixer";
 // import { useAdminHook } from "../Admin/AdminHook/AdminHook";
 
 // const backendUrl = process.env.REACT_APP_BACKEND_URL_LOCAL;
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-// let backendUrl = process.env.REACT_APP_BACKEND_URL;
 const authUrl = `${backendUrl}/protect`;
 const adminurl = `${backendUrl}/Admin`;
 const userUrl = `${backendUrl}/User`;
-
-
 
 export const AppContext = createContext();
 
@@ -91,7 +88,7 @@ export const AppContextprovider  = ({children})  => {
     //logout krta hai 
     const handleLogOut = async() => {
         try{
-            const res = await axios.post(`${authUrl}/Logout`,{},{withCredentials:true});
+            await axios.post(`${authUrl}/Logout`,{},{withCredentials:true});
             setIsUser(false);
             setCart([]);
             setUpdatedCart([])
@@ -114,7 +111,7 @@ export const AppContextprovider  = ({children})  => {
         try {
             const res = await axios.get(roleUrl, { withCredentials: true });
             setIsUser(true);
-            if(role=="Admin"){ 
+            if(role==="Admin"){ 
                 navigate('/admin/Dashboard');
                 GetAdminProduct();
             }
@@ -205,7 +202,7 @@ export const AppContextprovider  = ({children})  => {
         // console.log("sign in hona hai ", signInData);
         try {
             // Step 1: Sign up the user
-            const response = await axios.post(`${authUrl}/User/SignIn`, signInData);
+            await axios.post(`${authUrl}/User/SignIn`, signInData);
             // console.log("Ban gya account");
 
             //verify otp ke liye email add kr rhe hai: 
@@ -448,7 +445,7 @@ export const AppContextprovider  = ({children})  => {
   };
   const removeFromCart = async (productId) => {
     try {
-      const response = await axios.delete(`${userUrl}/${productId}/remove/cart`, {
+      await axios.delete(`${userUrl}/${productId}/remove/cart`, {
         withCredentials: true,
       });
       // console.log("Item removed successfully:", response.data);

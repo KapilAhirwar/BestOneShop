@@ -3,7 +3,6 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../useContextHook/context";
 export const RozerpayApp = createContext();
 // const backendUrl = process.env.REACT_APP_BACKEND_URL_LOCAL;
 const backendUrl = process.env.REACT_APP_BACKEND_URL;

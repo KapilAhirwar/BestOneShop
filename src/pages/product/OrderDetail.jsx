@@ -2,7 +2,7 @@ import { useLocation, useParams } from "react-router-dom";
 
 const OrderDetailPage = () => {
   const location = useLocation();
-  const { id } = useParams(); // /orderDetails/:id se milega
+  // const { id } = useParams(); // /orderDetails/:id se milega
   const order = location.state?.order;
 
   if (!order) {
