@@ -180,7 +180,7 @@
 // };
 // export default Home;
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import React from "react";
 import {
   Box,
@@ -205,7 +205,7 @@ const Home = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   // const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
-  const fetchProductData = async () => {
+  const fetchProductData = useCallback(async () => {
     setLoading(true);
     try {
       await GetProduct();
@@ -214,7 +214,7 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [GetProduct]);
 
   useEffect(() => {
     fetchProductData();

@@ -99,7 +99,7 @@ const AddressManager = ({ onClose }) => {
 
   useEffect(() => {
     fetchAddresses();
-  }, [fetchAddresses]);
+  }, []);
 
   return (
     //bg-white shadow-md rounded-md

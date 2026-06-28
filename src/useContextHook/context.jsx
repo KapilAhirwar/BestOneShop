@@ -76,7 +76,7 @@ export const AppContextprovider  = ({children})  => {
     }; 
     useEffect(() => {
         checkUserStatus();
-    }, [checkUserStatus]);
+    }, []);
 
     //logout krta hai 
     const handleLogOut = async() => {
@@ -334,7 +334,7 @@ export const AppContextprovider  = ({children})  => {
   };
 
   //address api calls
-  const fetchAddresses = useCallback(async () => {
+  const fetchAddresses = async () => {
     setLoading(true);
     try {
       const response = await axios.get(`${userUrl}/Get/Address`,{ withCredentials: true });
@@ -345,7 +345,7 @@ export const AppContextprovider  = ({children})  => {
       } finally {
       setLoading(false);
     }
-  }, []);
+  };
   const addAddress = async (formData) => {
       // console.log("ye hai data ", formData);
       setLoading(true);
