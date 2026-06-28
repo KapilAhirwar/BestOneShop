@@ -54,12 +54,10 @@ export const AppContextprovider  = ({children})  => {
     };
    
     // Check user session using cookies
-    const checkUserStatus = useCallback(async () => {
+    const checkUserStatus = async () => {
         // console.log("checkstatus");
         try {
             const res = await axios.get(`${authUrl}/validate-session`, { withCredentials: true });
-            // console.log("data after authorize -> ", res.data);
-            // console.log("status");
             if (res.data.valid) {
                 setIsUser(true);
                 setrole(res.data.user.role);
@@ -69,22 +67,14 @@ export const AppContextprovider  = ({children})  => {
                 setdata(res.data);
                 GetAllCart();
                 fetchAddresses();
-                // setAddNote(res.data.user_data.userNotes);
-                // setUserCompleteArray(res.data.user_data.completeQuestions);
             } else {
                 setIsUser(false);
             }
         } catch (err) {
-            // console.error("valid -> ",err);
             setIsUser(false);
-            // navigete('/Login');
         }
-    }, 
-    [
-      authUrl,
-    ]);
+    }; 
     useEffect(() => {
-        // console.log("user data fatchting -> ");
         checkUserStatus();
     }, [checkUserStatus]);
 
@@ -344,7 +334,7 @@ export const AppContextprovider  = ({children})  => {
   };
 
   //address api calls
-  const fetchAddresses = async () => {
+  const fetchAddresses = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get(`${userUrl}/Get/Address`,{ withCredentials: true });
@@ -355,7 +345,7 @@ export const AppContextprovider  = ({children})  => {
       } finally {
       setLoading(false);
     }
-  };
+  }, []);
   const addAddress = async (formData) => {
       // console.log("ye hai data ", formData);
       setLoading(true);
